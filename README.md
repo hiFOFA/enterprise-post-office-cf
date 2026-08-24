@@ -13,7 +13,7 @@
 
 [项目亮点](#项目亮点) · [开号权就是产品](#开号权就是产品) · [快速开始](#快速开始) · [为什么需要企业邮局](#为什么需要企业邮局) · [系统架构](#系统架构) · [English](README.en.md)
 
-维护者：[hiFOFA](https://github.com/hiFOFA/enterprise-post-office-cf)
+维护者：[hiFOFA](https://github.com/hiFOFA/enterprise-post-office-cf) · 共创：[Claude Code](https://www.anthropic.com/claude-code)
 
 企业邮局只跑在 Cloudflare 上：Workers 当柜台，D1 当台账，Email Routing 当进港码头。不用买机器、不用养邮件服务器。域名能收信，获准后能发信。
 

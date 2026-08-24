@@ -13,7 +13,7 @@
 
 [Highlights](#highlights) · [The product is who may open a box](#the-product-is-who-may-open-a-box) · [Quick start](#quick-start) · [Why this exists](#why-this-exists) · [Architecture](#architecture) · [中文](README.md)
 
-Maintainer: [hiFOFA](https://github.com/hiFOFA/enterprise-post-office-cf)
+Maintainer: [hiFOFA](https://github.com/hiFOFA/enterprise-post-office-cf) · Co-created with [Claude Code](https://www.anthropic.com/claude-code)
 
 Enterprise Post Office runs only on Cloudflare: the Worker is the counter, D1 is the ledger, Email Routing is the inbound dock. You do not buy a machine or run a mail server. You receive on your domain, and you send when an address is allowed to.
 
