@@ -1,0 +1,54 @@
+<script setup>
+import { ref, watch } from 'vue'
+import { useScopedI18n } from '@/i18n/app'
+
+import { useGlobalState } from '../../store'
+import { api } from '../../api'
+import SendBox from '../../components/SendBox.vue';
+
+const { adminSendBoxTabAddress, adminSendBoxReloadAt } = useGlobalState()
+const sendBoxKey = ref(0)
+
+watch(adminSendBoxReloadAt, (value) => {
+    if (value) sendBoxKey.value = value
+}, { immediate: true })
+
+const { t } = useScopedI18n('views.admin.SendBox')
+
+const querySendBox = () => {
+    adminSendBoxTabAddress.value = adminSendBoxTabAddress.value.trim();
+    sendBoxKey.value = Date.now();
+}
+
+const fetchData = async (limit, offset) => {
+    adminSendBoxTabAddress.value = adminSendBoxTabAddress.value.trim();
+    return await api.fetch(
+        `/admin/sendbox?limit=${limit}&offset=${offset}`
+        + (adminSendBoxTabAddress.value ? `&address=${adminSendBoxTabAddress.value}` : '')
+    );
+}
+
+const deleteSenboxMail = async (curMailId) => {
+    await api.fetch(`/admin/sendbox/${curMailId}`, { method: 'DELETE' });
+};
+</script>
+
+<template>
+    <div>
+        <n-input-group>
+            <n-input v-model:value="adminSendBoxTabAddress" :placeholder="t('queryTip')" @keydown.enter="querySendBox" />
+            <n-button @click="querySendBox" type="primary" tertiary>
+                {{ t('query') }}
+            </n-button>
+        </n-input-group>
+        <SendBox :key="sendBoxKey" style="margin-top: 10px;" :enableUserDeleteEmail="true" :deleteMail="deleteSenboxMail"
+            :fetchMailData="fetchData" :showEMailFrom="true" />
+    </div>
+</template>
+
+<style scoped>
+.n-pagination {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+</style>
