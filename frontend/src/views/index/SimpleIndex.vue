@@ -39,7 +39,7 @@ const copyAddress = async () => {
         await navigator.clipboard.writeText(settings.value.address)
         message.success(t('addressCopied'))
     } catch (error) {
-        message.error('复制失败')
+        message.error(t('copyFailed'))
     }
 }
 
@@ -53,7 +53,7 @@ const fetchMails = async () => {
         currentMail.value = rawMail ? await processItem(rawMail) : null
     } catch (error) {
         console.error('Failed to fetch mails:', error)
-        message.error('获取邮件失败')
+        message.error(t('queryFailed'))
     }
 }
 
@@ -67,7 +67,7 @@ const deleteMail = async () => {
         await refreshMails();
     } catch (error) {
         console.error('Failed to delete mail:', error);
-        message.error('删除邮件失败');
+        message.error(t('deleteFailed'));
     }
 }
 

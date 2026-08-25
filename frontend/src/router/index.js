@@ -7,6 +7,7 @@ import {
     getBrowserLocales,
     getPathWithLocale,
     getPreferredLocale,
+    getStoredLocale,
     replaceLocaleInFullPath,
     resolveSupportedLocale,
     stripLocaleFromPath,
@@ -43,34 +44,28 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: '/',
-            alias: '/:lang/',
+            path: '/:lang?/',
             component: Index
         },
         {
-            path: '/login',
-            alias: '/:lang/login',
+            path: '/:lang?/login',
             name: 'login',
             component: () => import('../views/common/EnterpriseLogin.vue')
         },
         {
-            path: '/user',
-            alias: '/:lang/user',
-            redirect: '/login',
+            path: '/:lang?/user',
+            component: () => import('../views/common/EnterpriseLogin.vue')
         },
         {
-            path: '/user/oauth2/callback',
-            alias: '/:lang/user/oauth2/callback',
-            redirect: '/login',
+            path: '/:lang?/user/oauth2/callback',
+            component: () => import('../views/common/EnterpriseLogin.vue')
         },
         {
-            path: '/admin',
-            alias: '/:lang/admin',
+            path: '/:lang?/admin',
             component: () => import('../views/Admin.vue')
         },
         {
-            path: '/telegram_mail',
-            alias: '/:lang/telegram_mail',
+            path: '/:lang?/telegram_mail',
             component: () => import('../views/telegram/Mail.vue')
         },
         {
@@ -83,7 +78,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const routeLocale = resolveSupportedLocale(to.path.split('/')[1])
-    const resolvedLocale = routeLocale || DEFAULT_LOCALE
+    const resolvedLocale = routeLocale || getPreferredLocale(getStoredLocale(), getBrowserLocales())
     i18n.global.locale.value = resolvedLocale
 
     if (routeLocale) {
@@ -147,7 +142,7 @@ router.beforeEach((to, from, next) => {
         return next()
     }
 
-    if (pathWithoutLocale === '/user') {
+    if (pathWithoutLocale === '/user' || pathWithoutLocale === '/user/oauth2/callback') {
         return next({
             path: getPathWithLocale('/login', resolvedLocale),
             query: to.query,

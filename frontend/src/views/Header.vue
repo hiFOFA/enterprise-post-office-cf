@@ -15,8 +15,7 @@ import { useGlobalState } from '../store'
 import { api } from '../api'
 import { PROJECT_GITHUB_URL } from '../utils/projectLinks'
 import { getRouterPathWithLang, hashPassword } from '../utils'
-import { DEFAULT_LOCALE, isSupportedLocale, replaceLocaleInFullPath } from '../i18n/utils'
-import { getLocaleLabel, SUPPORTED_LOCALES } from '../i18n/locale-registry'
+import { useLocaleSwitcher } from '../i18n/useLocaleSwitcher'
 import Turnstile from '../components/Turnstile.vue'
 import { NButton, NIcon } from 'naive-ui'
 
@@ -25,14 +24,13 @@ const notification = useNotification()
 
 const {
     toggleDark, isDark, showAdminPage,
-    showAuth, auth, loading, openSettings, preferredLocale,
+    showAuth, auth, loading, openSettings,
     showAboutLinks
 } = useGlobalState()
 const route = useRoute()
 const router = useRouter()
 const isMobile = useIsMobile()
 
-const showMobileMenu = ref(false)
 const menuValue = computed(() => {
     if (route.path.includes("admin")) return "admin";
     if (route.path.includes("login")) return "login";
@@ -58,51 +56,17 @@ const authFunc = async () => {
     }
 }
 
-const languageOptions = SUPPORTED_LOCALES.map((locale) => ({
-    label: getLocaleLabel(locale),
-    value: locale,
-    key: locale,
-}))
-
-const currentLocaleLabel = computed(() => {
-    return languageOptions.find(opt => opt.value === locale.value)?.label || locale.value;
-});
-
 const { t, locale } = useScopedI18n('views.Header')
 
+const { languageOptions, currentLocaleLabel, changeLocale: performLocaleChange } = useLocaleSwitcher()
+
 const changeLocale = async (lang) => {
-    if (!isSupportedLocale(lang)) {
-        return;
-    }
-
-    const currentFullPath = route.fullPath;
-    const targetFullPath = replaceLocaleInFullPath(currentFullPath, lang);
-
-    if (lang === locale.value && targetFullPath === currentFullPath) {
-        showMobileMenu.value = false;
-        return;
-    }
-
-    if (lang === DEFAULT_LOCALE) {
-        preferredLocale.value = DEFAULT_LOCALE;
-    }
-
-    let localeSwitched = false;
-    try {
-        await router.push({ path: targetFullPath, force: true });
-        localeSwitched = router.currentRoute.value.fullPath === targetFullPath;
-        if (!localeSwitched) {
-            await router.replace({ path: targetFullPath, force: true });
-            localeSwitched = router.currentRoute.value.fullPath === targetFullPath;
-        }
-    } catch (error) {
-        console.error('Failed to switch locale', error);
-    } finally {
-        showMobileMenu.value = false;
-    }
-
-    if (localeSwitched) preferredLocale.value = lang;
+    await performLocaleChange(lang, () => {
+        showMobileMenu.value = false
+    })
 }
+
+const showMobileMenu = ref(false)
 
 const version = import.meta.env.PACKAGE_VERSION ? `v${import.meta.env.PACKAGE_VERSION}` : "";
 const showGithubForCurrentUser = computed(() => {

@@ -7,6 +7,8 @@ import type { SupportedLocale } from './locale-registry'
 
 export const DEFAULT_LOCALE: SupportedLocale = 'zh'
 export const FALLBACK_LOCALE: SupportedLocale = 'zh'
+/** 无前缀路径时的初始语言兜底：浏览器语言都不匹配时用英语（用户铁律） */
+export const INITIAL_FALLBACK_LOCALE: SupportedLocale = 'en'
 export const PREFERRED_LOCALE_STORAGE_KEY = 'preferredLocale'
 export const EMPTY_LOCALE_MESSAGES = Object.fromEntries(
   SUPPORTED_LOCALES.map((supportedLocale) => [supportedLocale, {}]),
@@ -70,10 +72,11 @@ export const getPreferredLocale = (
     if (matchedLocale) return matchedLocale
   }
 
-  return FALLBACK_LOCALE
+  return INITIAL_FALLBACK_LOCALE
 }
 
-export const getInitialLocale = () => DEFAULT_LOCALE
+export const getInitialLocale = () =>
+  getPreferredLocale(getStoredLocale(), getBrowserLocales())
 
 const splitPathSuffix = (fullPath: string) => {
   const match = fullPath.match(/^([^?#]*)(.*)$/)

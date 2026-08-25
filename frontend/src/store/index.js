@@ -15,7 +15,7 @@ export const useGlobalState = createGlobalState(
         const useSimpleIndex = useLocalStorage('useSimpleIndex', false);
         const openSettings = ref({
             fetched: false,
-            title: '企业邮箱管理平台',
+            title: '',
             announcement: '',
             alwaysShowAnnouncement: false,
             prefix: '',
@@ -34,7 +34,7 @@ export const useGlobalState = createGlobalState(
             randomSubdomainDomains: [],
             /** @type {Array<{label: string, value: string}>} */
             domains: [],
-            copyright: '版权所有 ©2026-2030 企业邮箱转发',
+            copyright: '',
             cfTurnstileSiteKey: '',
             enableWebhook: false,
             isS3Enabled: false,

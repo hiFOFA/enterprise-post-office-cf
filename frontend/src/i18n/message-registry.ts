@@ -477,7 +477,7 @@ export const MESSAGE_REGISTRY = {
   },
   "views.Footer": {
     "copyright": {
-      "en": "版权所有 ©2026-2030 企业邮箱转发",
+      "en": "© 2026-2030 Enterprise Mail. All rights reserved.",
       "zh": "版权所有 ©2026-2030 企业邮箱转发"
     }
   },
@@ -573,7 +573,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "状态"
     },
     "title": {
-      "en": "企业邮箱管理平台",
+      "en": "Enterprise Mail Management Platform",
       "zh": "企业邮箱管理平台"
     },
     "user": {
@@ -921,7 +921,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "发送数量"
     },
     "success": {
-      "en": "success",
+      "en": "Success",
       "zh": "成功"
     },
     "targetUserEmail": {
@@ -1164,6 +1164,18 @@ export const MESSAGE_REGISTRY = {
     }
   },
   "views.index.SimpleIndex": {
+    "copyFailed": {
+      "en": "Copy failed",
+      "zh": "复制失败"
+    },
+    "queryFailed": {
+      "en": "Failed to load mails",
+      "zh": "获取邮件失败"
+    },
+    "deleteFailed": {
+      "en": "Failed to delete mail",
+      "zh": "删除邮件失败"
+    },
     "accountSettings": {
       "en": "Email Settings",
       "zh": "邮箱设置"
@@ -1243,7 +1255,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "切换邮箱地址"
     },
     "success": {
-      "en": "success",
+      "en": "Success",
       "zh": "成功"
     },
     "unbindMailAddress": {
@@ -1612,7 +1624,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "确定要删除这个邮箱吗？"
     },
     "itemCount": {
-      "en": "itemCount",
+      "en": "Total",
       "zh": "总数"
     },
     "mail_count": {
@@ -1919,7 +1931,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "是否启用"
     },
     "itemCount": {
-      "en": "itemCount",
+      "en": "Total",
       "zh": "总数"
     },
     "modalTip": {
@@ -1965,7 +1977,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "添加邮箱"
     },
     "success": {
-      "en": "success",
+      "en": "Success",
       "zh": "成功"
     },
     "tip": {
@@ -2183,7 +2195,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "发送数量"
     },
     "success": {
-      "en": "success",
+      "en": "Success",
       "zh": "成功"
     }
   },
@@ -2229,7 +2241,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "邮箱"
     },
     "itemCount": {
-      "en": "itemCount",
+      "en": "Total",
       "zh": "总数"
     },
     "password": {
@@ -2491,7 +2503,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "自动刷新间隔(秒)"
     },
     "bottom": {
-      "en": "bottom",
+      "en": "Bottom",
       "zh": "底部"
     },
     "globalTabplacement": {
@@ -2499,7 +2511,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "全局选项卡位置"
     },
     "left": {
-      "en": "left",
+      "en": "Left",
       "zh": "左侧"
     },
     "mailboxSplitSize": {
@@ -2523,11 +2535,11 @@ export const MESSAGE_REGISTRY = {
       "zh": "默认以文本显示邮件"
     },
     "right": {
-      "en": "right",
+      "en": "Right",
       "zh": "右侧"
     },
     "top": {
-      "en": "top",
+      "en": "Top",
       "zh": "顶部"
     },
     "useIframeShowMail": {
@@ -3004,12 +3016,16 @@ export const MESSAGE_REGISTRY = {
     }
   },
   "views.common.EnterpriseLogin": {
+    "selectLanguage": {
+      "en": "Language",
+      "zh": "语言"
+    },
     "companyNameFallback": {
-      "en": "企业邮箱管理平台",
+      "en": "Enterprise Mail Management Platform",
       "zh": "企业邮箱管理平台"
     },
     "brandTitle": {
-      "en": "企业邮箱管理平台",
+      "en": "Enterprise Mail Management Platform",
       "zh": "企业邮箱管理平台"
     },
     "brandSubtitle": {
@@ -3029,7 +3045,7 @@ export const MESSAGE_REGISTRY = {
       "zh": "完全运行在 Cloudflare Workers 之上"
     },
     "brandFoot": {
-      "en": "版权所有 ©2026-2030 企业邮箱转发",
+      "en": "© 2026-2030 Enterprise Mail. All rights reserved.",
       "zh": "版权所有 ©2026-2030 企业邮箱转发"
     },
     "loginTitle": {

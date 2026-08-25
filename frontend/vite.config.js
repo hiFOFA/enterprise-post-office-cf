@@ -70,5 +70,13 @@ export default defineConfig({
   },
   define: {
     'import.meta.env.PACKAGE_VERSION': JSON.stringify(process.env.npm_package_version),
-  }
+  },
+  test: {
+    environment: 'jsdom',
+    server: {
+      deps: {
+        inline: ['vue-clipboard3'],
+      },
+    },
+  },
 })

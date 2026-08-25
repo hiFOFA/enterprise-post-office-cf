@@ -25,7 +25,7 @@ export const ensureDefaultOwnerGroups = async (c: Context<HonoCustomType>): Prom
     ).all<{ id: number; username: string }>();
     const specs = buildDefaultOwnerGroupSpecs(subAdmins || []);
     const wantedKeys = new Set(specs.map((item) => item.key));
-    let map = parseDefaultOwnerGroupMap(
+    const map = parseDefaultOwnerGroupMap(
         await getJsonSetting<DefaultOwnerGroupMap>(c, CONSTANTS.DEFAULT_OWNER_GROUPS_KEY)
     );
 

@@ -5,11 +5,19 @@ export const LOCAL_ADDRESS_CACHE_KEY = 'LocalAddressCache'
 export const decodeJwtPayload = (token: string): Record<string, unknown> | null => {
     if (!token || typeof token !== 'string' || !token.includes('.')) return null
     try {
-        const payload = JSON.parse(
-            decodeURIComponent(
-                atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))
-            )
-        )
+        const base64Url = token.split('.')[1]
+        if (!base64Url) return null
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+        while (base64.length % 4) {
+            base64 += '='
+        }
+        const binaryStr = atob(base64)
+        const bytes = new Uint8Array(binaryStr.length)
+        for (let i = 0; i < binaryStr.length; i++) {
+            bytes[i] = binaryStr.charCodeAt(i)
+        }
+        const jsonStr = new TextDecoder().decode(bytes)
+        const payload = JSON.parse(jsonStr)
         if (!payload || typeof payload !== 'object') return null
         return payload as Record<string, unknown>
     } catch {

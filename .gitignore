@@ -135,8 +135,10 @@ dist
 
 .wrangler
 wrangler.toml
+wrangler.screenshot.toml
 !pages/wrangler.toml
 .dev.vars
+.playwright-mcp/
 pnpm-lock.yaml
 
 # E2E test artifacts

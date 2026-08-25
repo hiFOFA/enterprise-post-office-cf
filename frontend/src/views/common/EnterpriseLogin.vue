@@ -1,9 +1,11 @@
 <script setup>
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { EmailOutlined, VerifiedUserOutlined } from '@vicons/material'
+import { EmailOutlined, VerifiedUserOutlined, KeyboardArrowDownOutlined } from '@vicons/material'
+import { Language } from '@vicons/fa'
 
 import { useScopedI18n } from '@/i18n/app'
+import { useLocaleSwitcher } from '@/i18n/useLocaleSwitcher'
 import Turnstile from '../../components/Turnstile.vue'
 import { useGlobalState } from '../../store'
 import { api } from '../../api'
@@ -14,6 +16,7 @@ const router = useRouter()
 const message = useMessage()
 const notification = useNotification()
 const { locale, t } = useScopedI18n('views.common.EnterpriseLogin')
+const { languageOptions, currentLocaleLabel, changeLocale } = useLocaleSwitcher()
 
 const {
     jwt, loading, openSettings, adminAuth, adminRole, adminUsername,
@@ -183,6 +186,15 @@ onMounted(async () => {
 
         <section class="ent-form">
             <div class="ent-form__card">
+                <div class="ent-form__locale">
+                    <n-dropdown :options="languageOptions" @select="changeLocale" trigger="click">
+                        <button type="button" class="ent-locale-button" :aria-label="t('selectLanguage')">
+                            <n-icon :component="Language" :size="15" />
+                            <span>{{ currentLocaleLabel }}</span>
+                            <n-icon :component="KeyboardArrowDownOutlined" :size="16" />
+                        </button>
+                    </n-dropdown>
+                </div>
                 <div class="ent-form__head">
                     <img src="/logo.png" :alt="companyName" class="ent-form__mark" />
                     <h2>{{ t('loginTitle') }}</h2>
@@ -383,6 +395,45 @@ onMounted(async () => {
 .ent-form__card {
     width: 100%;
     max-width: 380px;
+}
+
+.ent-form__locale {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
+
+.ent-locale-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 1px solid #d5dae2;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .18s ease;
+}
+
+.ent-locale-button:hover {
+    border-color: #a9b6ff;
+    color: #1f2937;
+}
+
+:global(.dark) .ent-locale-button,
+:global(html.dark) .ent-locale-button {
+    background-color: #1a1f2b;
+    border-color: #313847;
+    color: #cbd5e1;
+}
+
+:global(.dark) .ent-locale-button:hover,
+:global(html.dark) .ent-locale-button:hover {
+    border-color: #4c8dff;
+    color: #ffffff;
 }
 
 .ent-form__mark {
